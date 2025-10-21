@@ -1,0 +1,13 @@
+# Java
+*.class
+*.jar
+target/
+*.log
+*.iml
+.idea/
+
+# Node / frontend
+node_modules/
+dist/
+build/
+.env
