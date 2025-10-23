@@ -28,13 +28,24 @@ public class ExchangeRateRequestMapper {
 
     private static ExchangeRateRequestDTO parsePath(String pathInfo, String... rate) {
 
-        if (!ValidationUtils.isValidCurrencyPath(pathInfo) || !ValidationUtils.isValidCurrencyPairPath(pathInfo)) {
+        if (pathInfo == null || pathInfo.length() < 2) {
             // return empty object
             return new ExchangeRateRequestDTO();
         }
 
-        String baseCurrency = pathInfo.substring(1, 4);
-        String targetCurrency = pathInfo.substring(4);
+        pathInfo = pathInfo.startsWith("/") ? pathInfo.substring(1) : pathInfo;
+
+        String baseCurrency = "";
+        String targetCurrency = "";
+
+        if (pathInfo.length() >= 3) {
+            baseCurrency = pathInfo.substring(0, 3);
+        }
+
+        if (pathInfo.length() > 3) {
+            // take next 3 chars for target (avoid IndexOutOfBounds)
+            targetCurrency = pathInfo.substring(3, Math.min(6, pathInfo.length()));
+        }
 
         String rateValue = rate.length > 0 ? rate[0] : null;
 
