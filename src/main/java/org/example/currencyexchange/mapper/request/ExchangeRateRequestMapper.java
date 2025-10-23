@@ -26,13 +26,11 @@ public class ExchangeRateRequestMapper {
         return parsePath(pathInfo, rate);
     }
 
-    private static ExchangeRateRequestDTO parsePath(String pathInfo, String... rate) throws AppException {
-        if (!ValidationUtils.isValidCurrencyPath(pathInfo)) {
-            throw new CurrencyNotFoundException("Currency codes are missing");
-        }
+    private static ExchangeRateRequestDTO parsePath(String pathInfo, String... rate) {
 
-        if (!ValidationUtils.isValidCurrencyPairPath(pathInfo)) {
-            throw new InvalidCurrencyException("Invalid currency code");
+        if (!ValidationUtils.isValidCurrencyPath(pathInfo) || !ValidationUtils.isValidCurrencyPairPath(pathInfo)) {
+            // return empty object
+            return new ExchangeRateRequestDTO();
         }
 
         String baseCurrency = pathInfo.substring(1, 4);
