@@ -1,4 +1,3 @@
-/*
 package org.example.currencyexchange.utils;
 
 import javax.servlet.*;
@@ -48,4 +47,3 @@ public class CORSFilter implements Filter {
     @Override
     public void destroy() {}
 }
-*/
